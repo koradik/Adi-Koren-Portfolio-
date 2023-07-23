@@ -7,4 +7,4 @@
 * The data was analyzed using clustering and regression methods.
 * By analysing students’ usage data, three clusters of behaviour were identified, who differentiate by their level of activity - high level, medium level and low level. 
 * Data manipulation and use of models was done using Python, R & Excel.
-* Link to code available by clicking on title
+* Link to code available by clicking on title.
