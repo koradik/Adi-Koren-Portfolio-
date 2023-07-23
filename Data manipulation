@@ -1,0 +1,165 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+df1=pd.read_csv(r'C:\Users\adi_pc\Documents\Python\Thesis\Data03.csv')
+df1 = df1[~df1.isin(['d77fa666641a43a78975439d332911c9']).any(axis=1)]
+df1 = df1.replace(['117ff94d3f924f608648a4dc4e241355','6c18fc62ffb047b7b027f2a776126885','53dbc5e35f084b158c94b028553683f6','8a9423751705495aa14c493c99046980','4a4f7c22d3ad4ab796813bd888e1d54a','6da08b9854ac44159a09b43fd9f166b8','aa26313491f948c59101b1fda792447b'],['w1', 'w2','w3','w4','w5','w6','w7'])
+df1["CommentCreation"] = pd.to_datetime(df1["CommentCreation"])
+df1["AnswerCreation"] = pd.to_datetime(df1["AnswerCreation"])
+###################Comments###########################
+###number of days for COMMENTS###
+df1['comment_days_count'] = df1['CommentCreation'].apply(lambda x: x.date())
+df1['answer_days_count'] = df1['AnswerCreation'].apply(lambda x: x.date())
+df1['day_num']=df1['comment_days_count'].astype(str)+df1['DiscussionId']
+df1['day_num'] = df1['day_num'].replace(['2021-07-16w1','2021-07-17w1','2021-07-18w1','2021-07-19w1','2021-07-20w1','2021-07-22w1','2021-07-23w1','2021-07-24w1','2021-07-25w1','2021-07-20w2','2021-07-21w2','2021-07-22w2','2021-07-23w2','2021-07-24w2','2021-07-25w2','2021-07-23w3','2021-07-24w3','2021-07-25w3','2021-07-26w3','2021-07-27w3','2021-07-28w3','2021-07-29w3','2021-07-30w3','2021-07-30w4','2021-07-31w4','2021-08-01w4','2021-08-02w4','2021-08-03w4','2021-08-04w4','2021-08-05w4','2021-08-06w4','2021-08-06w5','2021-08-07w5','2021-08-08w5','2021-08-09w5','2021-08-10w5','2021-08-11w5','2021-08-12w5','2021-08-13w5','2021-08-13w6','2021-08-14w6','2021-08-15w6','2021-08-16w6','2021-08-17w6','2021-08-18w6','2021-08-19w6','2021-08-20w6','2021-08-21w6','2021-08-20w7','2021-08-21w7','2021-08-22w7','2021-08-23w7','2021-08-24w7','2021-08-25w7','2021-08-26w7','2021-08-27w7','2021-08-28w7','2021-08-29w7','2021-08-30w7','2021-08-31w7','2021-09-01w7','2021-09-02w7','2021-09-03w7'],[1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+df1['day1']= np.where(df1['day_num'] == 1, 1, 0)
+###number of days for ANSWERS###
+df1['day_a'] = df1['AnswerCreation'].apply(lambda x: x.date())
+df1['day_num_a']=df1['day_a'].astype(str)+df1['DiscussionId']
+df1['day_num_a'] = df1['day_num_a'].replace(['2021-07-16w1','2021-07-17w1', '2021-07-18w1', '2021-07-19w1', '2021-07-20w1','2021-07-21w1','2021-07-22w1','2021-07-23w1','2021-07-20w2', '2021-07-21w2', '2021-07-22w2', '2021-07-23w2','2021-07-24w2', '2021-07-23w3', '2021-07-24w3', '2021-07-25w3', '2021-07-27w3', '2021-07-28w3', '2021-07-29w3', '2021-07-30w3', '2021-07-30w4', '2021-07-31w4', '2021-08-01w4', '2021-08-02w4', '2021-08-03w4', '2021-08-04w4', '2021-08-05w4', '2021-08-06w4', '2021-08-06w5', '2021-08-07w5', '2021-08-08w5', '2021-08-09w5', '2021-08-10w5', '2021-08-11w5', '2021-08-12w5', '2021-08-13w5', '2021-08-13w6', '2021-08-14w6', '2021-08-15w6', '2021-08-16w6', '2021-08-17w6', '2021-08-19w6', '2021-08-20w6','2021-08-21w6', '2021-08-20w7', '2021-08-21w7', '2021-08-22w7', '2021-08-23w7', '2021-08-24w7', '2021-08-25w7', '2021-08-26w7', '2021-08-27w7', '2021-08-28w7', '2021-08-30w7', '2021-09-01w7', '2021-09-03w7'],[1,2,3,4,5,6,7,8,1,2,3,4,5,1,2,3,4,5,6,7,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,9,10,11,12])
+df1['day1_a']= np.where(df1['day_num_a'] == 1, 1, 0)
+####Avg difference of comment creation####
+df1["CommentCreation"] = pd.to_datetime(df1["CommentCreation"], dayfirst=True)
+df1 = df1.sort_values('CommentCreation')
+threshold = 3600
+groups = (df1.groupby(['CommentOwner', 'DiscussionId', pd.Grouper(freq='d', key='CommentCreation')])['CommentCreation']
+            .transform(lambda x: x.diff().dt.total_seconds().gt(threshold).cumsum()))
+xx_df = (df1.groupby(['CommentOwner', 'DiscussionId',pd.Grouper(freq='d', key='CommentCreation'), groups])['CommentCreation']
+          .agg(lambda x: x.diff().mean())
+          .dt.total_seconds()    
+          .div(60)
+          .droplevel(-1)
+          .reset_index(name='mean_diff_comments'))
+xx_df_na=xx_df.dropna()
+plt.boxplot(xx_df_na['mean_diff_comments'])
+plt.suptitle('Mean difference of comment creation time')
+plt.ylabel('minutes')
+xx_df['mean_diff_comments'].median()
+##consecutive days##
+consecutive_days = lambda x: x.diff().eq(pd.Timedelta(days=1)).sum() + 1
+con = (xx_df.groupby(['CommentOwner', 'DiscussionId'])['CommentCreation']
+         .apply(consecutive_days)
+         .where(lambda x: x > 1, other=0)
+         .rename('count_consecutive'))
+#number entries per day for COMMENTS#
+q=xx_df.groupby(['CommentOwner', 'DiscussionId', 'CommentCreation'], as_index=False)['CommentCreation'].agg('count').groupby(['CommentOwner', 'DiscussionId'], as_index=False).agg(**{'comments_entries_perDay': ('CommentCreation', 'mean')}).set_index(['CommentOwner', 'DiscussionId'])
+#max/min COMMENTS in week and day number
+count_actions = df1.groupby(['CommentOwner','DiscussionId','day_num']).size().reset_index(name='num_actions')
+max_actions_day = count_actions.loc[count_actions.groupby(['CommentOwner','DiscussionId'])['num_actions'].idxmax(), ['CommentOwner','DiscussionId','day_num']].reset_index(drop=True).rename(columns = {'day_num':'maxComment_dayNum'}) 
+max_number_actions = count_actions.groupby(['CommentOwner','DiscussionId'])['num_actions'].max().reset_index(name='max_comments')
+min_actions_day = count_actions.loc[count_actions.groupby(['CommentOwner','DiscussionId'])['num_actions'].idxmin(), ['CommentOwner','DiscussionId','day_num']].reset_index(drop=True).rename(columns = {'day_num':'minComment_dayNum'}) 
+min_number_actions = count_actions.groupby(['CommentOwner','DiscussionId'])['num_actions'].min().reset_index(name='min_comments')
+maxmin_df = max_number_actions.merge(max_actions_day, on=['CommentOwner','DiscussionId']).merge(min_number_actions, on=['CommentOwner','DiscussionId']).merge(min_actions_day, on=['CommentOwner','DiscussionId']).set_index(['CommentOwner','DiscussionId'])
+###########################################################
+df1['word_count']=df1['Content'].str.split().str.len()
+df_com = df1.groupby(['CommentOwner','DiscussionId'])
+y=df_com.nunique()
+y = y[['AnswerId','CommentedOn','CommentedOnOwner', 'comment_days_count']]
+xc=df_com.agg(**{'CommentCreation_count':('CommentCreation','count')})
+z=df1.groupby(['CommentOwner','DiscussionId','Type']).size().unstack(fill_value=0)
+#COMMENTS words
+b=df_com.agg(**{'com_word_count_min': ('word_count', 'min'),'com_word_count_max': ('word_count', 'max'),'com_word_count_mean': ('word_count', 'mean'),'com_word_count_sum': ('word_count', 'sum')})
+#
+e=df_com.agg({'day_num':'mean'})
+g=df1["day_num"].eq(1).groupby([df1["CommentOwner"],df1["DiscussionId"]]).any().astype(int).rename('day1')
+t=xx_df.groupby(['CommentOwner','DiscussionId']).mean()
+u=df1.groupby(['CommentOwner','DiscussionId'])['day_num'].apply(pd.Series.mode)
+u=u.reset_index().groupby(['CommentOwner','DiscussionId']).agg({'day_num':'mean'}).rename(columns = {'day_num':'day_mode'})
+#merge all
+uni = pd.concat([xc,y,z,b,con,t,e,g,u,q,maxmin_df], axis=1)
+#Answers#
+df_ans = df1.groupby(['AnswerOwner','DiscussionId'])
+ans_u=df_ans.nunique()
+ans_u = ans_u[['answer_days_count']]
+ans = df_ans.agg({'AnswerCreation':'count'})
+ea= df_ans.agg({'day_num_a':'mean'})
+ga=pd.DataFrame(df1["day_num_a"].eq(1).groupby([df1["AnswerOwner"],df1["DiscussionId"]]).any().astype(int).rename('day1_a'))
+#ANSWERS words
+ba=df_ans.agg(**{'ans_word_count_min': ('word_count', 'min'),'ans_word_count_max': ('word_count', 'max'),'ans_word_count_mean': ('word_count', 'mean'),'ans_word_count_sum': ('word_count', 'sum')})
+#
+ww=pd.concat([ans,ans_u,ga,ea,ba], axis=1).reset_index()
+ww.rename(columns = {'AnswerOwner':'Owner'}, inplace = True)
+#rename columns names#
+uni=uni.reset_index()
+uni.rename(columns = {'CommentOwner':'Owner'}, inplace = True)
+unix=pd.merge(uni, ww, how='outer', on=['Owner','DiscussionId']).sort_values(['Owner','DiscussionId'])
+unix['mean_Comments_PerDay']=unix['CommentCreation_count']/unix['comment_days_count']
+############################no content file#############################
+df2=pd.read_csv(r'C:\Users\adi_pc\Documents\Python\Thesis\f1d2_team_data 03.csv')
+df2 = df2[~df2.isin(['d77fa666641a43a78975439d332911c9']).any(axis=1)]
+df2 = df2.replace(['117ff94d3f924f608648a4dc4e241355','6c18fc62ffb047b7b027f2a776126885','53dbc5e35f084b158c94b028553683f6','8a9423751705495aa14c493c99046980','4a4f7c22d3ad4ab796813bd888e1d54a','6da08b9854ac44159a09b43fd9f166b8','aa26313491f948c59101b1fda792447b'],['w1', 'w2','w3','w4','w5','w6','w7'])
+#drop overdue#
+df2["createdAt"] = pd.to_datetime(df2["createdAt"], dayfirst=True)
+date_na=df2[df2['createdAt'].isna()]
+df2 = df2[(df2['createdAt'] < '2021-09-30 00:00:00')]
+df2=pd.concat([df2,date_na])
+df2 = df2.sort_values('createdAt')
+threshold = 3600
+##
+df2['actions_days_count'] = df2['createdAt'].apply(lambda x: x.date())
+####views count####
+view_count=df2.groupby(['viewerId','questionId']).agg({'item_viewed':'count'})
+groups_view = (df2.groupby(['viewerId','questionId', pd.Grouper(freq='d', key='createdAt')])['createdAt']
+            .transform(lambda x: x.diff().dt.total_seconds().gt(threshold).cumsum()))
+mean_diff_views = (df2.groupby(['viewerId','questionId',pd.Grouper(freq='d', key='createdAt'), groups_view])['createdAt']
+          .agg(lambda x: x.diff().mean())
+          .dt.total_seconds()    
+          .div(60)
+          .droplevel(-1)
+          .reset_index(name='mean_diff_views')).rename(columns = {'viewerId':'Id'})
+mean_diff_views=mean_diff_views.groupby(['Id', 'questionId'])['mean_diff_views'].agg('mean')
+####votes count####
+vote_count=df2.groupby(['voterId','questionId','Type']).size().unstack().fillna(0)
+groups_vote = (df2.groupby(['voterId','questionId', pd.Grouper(freq='d', key='createdAt')])['createdAt']
+            .transform(lambda x: x.diff().dt.total_seconds().gt(threshold).cumsum()))
+mean_diff_votes = (df2.groupby(['voterId','questionId',pd.Grouper(freq='d', key='createdAt'), groups_vote])['createdAt']
+          .agg(lambda x: x.diff().mean())
+          .dt.total_seconds()    
+          .div(60)
+          .droplevel(-1)
+          .reset_index(name='mean_diff_votes')).rename(columns = {'voterId':'Id'})
+mean_diff_votes=mean_diff_votes.groupby(['Id', 'questionId'])['mean_diff_votes'].agg('mean')
+###create file ALL ACTIONS-(aa)###
+views=df2[df2['Type'].isin(['Viewed'])]
+views=views[['Type','createdAt','viewerId','questionId']].rename(columns = {'viewerId':'Id'})
+comments=df2[df2['Type'].isin(['Comment: agree','Comment: challenge','Clarification'])]
+comments=comments[['Type','createdAt','commentOwner','questionId']].rename(columns = {'commentOwner':'Id'})
+votes=df2[df2['Type'].isin(['upVote','downVote','neutralVote','Insightful'])]
+votes=votes[['Type','createdAt','voterId','questionId']].rename(columns = {'voterId':'Id'})
+answers=df2[df2['Type'].isin(['Answer'])]
+answers=answers[['Type','createdAt','answerOwner','questionId']].rename(columns = {'answerOwner':'Id'})
+f=pd.concat([views,comments,votes,answers])
+f = f.sort_values('createdAt')
+#actions_days_count
+f['actions_days_count'] = f['createdAt'].apply(lambda x: x.date())
+f_u = f.groupby(['Id','questionId']).nunique()
+f_u=f_u[['actions_days_count']]
+#number entries per day for ALL ACTIONS#
+threshold = 3600
+groups = (f.groupby(['Id', 'questionId', pd.Grouper(freq='d', key='createdAt')])['createdAt'].transform(lambda x: x.diff().dt.total_seconds().gt(threshold).cumsum()))
+xx_df = (f.groupby(['Id', 'questionId',pd.Grouper(freq='d', key='createdAt'), groups])['createdAt']
+          .agg(lambda x: x.diff().mean())
+          .dt.total_seconds()    
+          .div(60)
+          .droplevel(-1)
+          .reset_index(name='mean_diff'))
+entries_count=xx_df.groupby(['Id', 'questionId', 'createdAt'], as_index=False)['createdAt'].agg('count').groupby(['Id', 'questionId'], as_index=False).agg(**{'entries_count_PerDay_mean': ('createdAt', 'mean'),'entries_count_PerDay_max': ('createdAt', 'max'),'entries_count_PerDay_min': ('createdAt', 'min')}).set_index(['Id', 'questionId'])
+#TOTAL activity time for ALL ACTIONS#
+x_time = (f.groupby(['Id', 'questionId',pd.Grouper(freq='d', key='createdAt'), groups])['createdAt']).agg(['min','max'])
+x_time['total_time']=(x_time[('max')]-x_time[('min')]).dt.total_seconds()/60
+tt=x_time.groupby(['Id','questionId']).agg(**{'total_time_sum': ('total_time', 'sum'),'total_time_mean': ('total_time', 'mean'),'total_time_max': ('total_time', 'max'),'total_time_min': ('total_time', 'min')})
+#merge mean votes & views time, mean entries count, mean total time
+aa=pd.concat([view_count,vote_count,mean_diff_views,mean_diff_votes,entries_count,tt,f_u],axis=1).reset_index().rename(columns = {'level_0':'Owner','questionId':'DiscussionId'})
+uni_all=pd.merge(unix, aa, how='outer', on=['Owner','DiscussionId']).sort_values(['Owner','DiscussionId'])
+#drop anonymous#
+uni_all = uni_all[~uni_all.isin([1067250,1760255,2249869,2250641,2252817,2258867,2261724,2267078,2268013,2268444,2275647,2276592,2334297,2336053,2338295,2345689,2350290,2357747,2365780,2215806,2217650,2221236,2224158,2860785]).any(axis=1)]
+uni_all.to_csv(r'C:\Users\adi_pc\Documents\Python\uni03.csv')
+###########pivot table#############
+p=uni_all.pivot(index="Owner", columns="DiscussionId", values=['Owner','DiscussionId','CommentCreation_count','answer_days_count','AnswerId','CommentedOn','CommentedOnOwner','comment_days_count','Comment: agree','Comment: challenge','Clarification','com_word_count_min','com_word_count_max','com_word_count_sum','com_word_count_mean','ans_word_count_min','ans_word_count_max','ans_word_count_sum','ans_word_count_mean','count_consecutive','mean_diff_comments','day_num','day1','day_mode','comments_entries_perDay','max_comments','maxComment_dayNum', 'min_comments', 'minComment_dayNum','AnswerCreation', 'day1_a', 'day_num_a','mean_Comments_PerDay','item_viewed', 'Insightful', 'upVote', 'downVote', 'neutralVote','mean_diff_views', 'mean_diff_votes', 'entries_count_PerDay_mean','entries_count_PerDay_max','entries_count_PerDay_min','total_time_sum','total_time_mean','total_time_max','total_time_min','actions_days_count'])
+##
+p.drop(p.iloc[:,:14], inplace=True, axis=1)
+#rename columns names#
+ind = pd.Index([e[0]+'_'+e[1] for e in p.columns.tolist()])
+p.columns = ind
+p=p.reset_index().fillna(0)
+p.to_csv(r'C:\Users\adi_pc\Documents\Python\p03.csv')
