@@ -15,6 +15,7 @@
 
 * The dashborad shows analytics of israeli visas between years 2013-2021, by gender, age & origin country.
 * The data is available on the website of the Israeli Population and Immigration Authority.
+* Link to dashborad available by clicking on title.
 
   ![](https://github.com/koradik/Adi-Koren-Portfolio-/blob/main/images/Capture.JPG)
 
@@ -22,3 +23,6 @@
 
 * The dashborad shows analytics of foreign workers in Israel by work field, gender, age & origin country.
 * The data is available on the website of the Israeli Population and Immigration Authority.
+* Link to dashborad available by clicking on title.
+
+![](https://github.com/koradik/Adi-Koren-Portfolio-/blob/main/images/Capture2.JPG)
