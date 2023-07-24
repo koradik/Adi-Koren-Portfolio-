@@ -8,3 +8,6 @@
 * By analysing students’ usage data, three clusters of behaviour were identified, who differentiate by their level of activity - high level, medium level and low level. 
 * Data manipulation and use of models was done using Python, R & Excel.
 * Link to code available by clicking on title.
+
+# Tableau Dashborad
+# [Dashborad 1: How Covid affected number of Israeli visas]([https://github.com/koradik/Adi-Koren-Portfolio-/commit/e1cf5ace08b2f11b10de5ab3974a1e233cc43582](https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad1/Dashboard1)https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad1/Dashboard1)
