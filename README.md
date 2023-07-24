@@ -17,7 +17,7 @@
 * The data is available on the website of the Israeli Population and Immigration Authority.
 * Link to dashborad available by clicking on title.
 
-  ![](https://github.com/koradik/Adi-Koren-Portfolio-/blob/main/images/Capture.JPG)
+  ![](/images/Capture.JPG)
 
 # [Dashborad 2: Foreign Workers in Israel](https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad2/Dashboard3)
 
@@ -25,4 +25,4 @@
 * The data is available on the website of the Israeli Population and Immigration Authority.
 * Link to dashborad available by clicking on title.
 
-![](https://github.com/koradik/Adi-Koren-Portfolio-/blob/main/images/Capture2.JPG)
+![](/images/Capture2.JPG)
