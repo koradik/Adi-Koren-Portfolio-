@@ -11,3 +11,6 @@
 
 # Tableau Dashborad
 # [Dashborad 1: How Covid affected number of Israeli visas]([https://github.com/koradik/Adi-Koren-Portfolio-/commit/e1cf5ace08b2f11b10de5ab3974a1e233cc43582](https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad1/Dashboard1)https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad1/Dashboard1)
+
+* The dashborad shows analytics of israeli visas between years 2013-2021, by gender, age & origin country.
+* The data is available on the website of the central bureau of statistics.
