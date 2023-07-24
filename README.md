@@ -9,8 +9,14 @@
 * Data manipulation and use of models was done using Python, R & Excel.
 * Link to code available by clicking on title.
 
-# Tableau Dashborad
-# [Dashborad 1: How Covid affected number of Israeli visas](https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad1/Dashboard1)https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad1/Dashboard1) 
+# Tableau Dashborads
+
+# [Dashborad 1: How Covid affected number of Israeli visas](https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad1/Dashboard1)
 
 * The dashborad shows analytics of israeli visas between years 2013-2021, by gender, age & origin country.
-* The data is available on the website of the central bureau of statistics.
+* The data is available on the website of the Israeli Central Bureau of Statistics.
+
+# [Dashborad 2: Foreign Workers in Israel](https://public.tableau.com/app/profile/adi.koren/viz/FinalProjectDashborad2/Dashboard3)
+
+* The dashborad shows analytics of foreign workers in Israel by work field, gender, age & origin country.
+* The data is available on the website of the Israeli Central Bureau of Statistics.
